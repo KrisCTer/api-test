@@ -6,8 +6,6 @@ import io.restassured.response.Response;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-import java.util.List;
-
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.*;
 
@@ -22,11 +20,11 @@ public class HealthCheckTest extends BaseTest {
     @DisplayName("GET /v1/api/home → API có thể kết nối và phản hồi")
     public void testApiIsReachable() {
         RestAssured
-            .given()
+                .given()
                 .spec(requestSpec)
-            .when()
+                .when()
                 .get("/v1/api/home")
-            .then()
+                .then()
                 .log().ifError()
                 .statusCode(200);
 
@@ -37,11 +35,11 @@ public class HealthCheckTest extends BaseTest {
     @DisplayName("GET /v1/api/home → Content-Type là application/json")
     public void testApiReturnsJson() {
         RestAssured
-            .given()
+                .given()
                 .spec(requestSpec)
-            .when()
+                .when()
                 .get("/v1/api/home")
-            .then()
+                .then()
                 .statusCode(200)
                 .contentType(org.hamcrest.Matchers.containsStringIgnoringCase("application/json"));
 
@@ -52,11 +50,11 @@ public class HealthCheckTest extends BaseTest {
     @DisplayName("GET /v1/api/home → response body không rỗng")
     public void testApiResponseBodyNotEmpty() {
         Response response = RestAssured
-            .given()
+                .given()
                 .spec(requestSpec)
-            .when()
+                .when()
                 .get("/v1/api/home")
-            .then()
+                .then()
                 .statusCode(200)
                 .extract().response();
 

@@ -122,38 +122,25 @@
 
 ---
 
-## ⭐ TOP 20 TEST CHẤT LƯỢNG NHẤT
+## ❌ Các Test Báo Lỗi Có Chủ Đích (Intentional Fails)
 
-| # | Tên Test | File | Lý do chất lượng cao |
-|---|----------|------|---------------------|
-| 1 | `testDetail_FullStructure` | MovieDetailTest | Cấu trúc JSON chuyên sâu (Episodes/TMDB/IMDB) |
-| 2 | `testDetail_NonExistentSlug` | MovieDetailTest | Negative test slug không tồn tại |
-| 3 | `testDetail_Success` | MovieDetailTest | Metadata hình ảnh (thumb/poster) |
-| 4 | `testKeywords_VN` | MovieDetailTest | Mapping từ khóa sang tiếng Việt |
-| 5 | `testPeoples_Detail` | MovieDetailTest | Chi tiết diễn viên/đạo diễn |
-| 6 | `testMovieListBySlug_Returns200` | MovieListTest | ParameterizedTest 6 slugs |
-| 7 | `testMovieList_PaginationWorks` | MovieListTest | So sánh trang 1 vs trang 2 |
-| 8 | `testMovieList_LimitParam` | MovieListTest | Giới hạn số lượng phim |
-| 9 | `testMovieList_SortByYearDesc` | MovieListTest | Sắp xếp theo năm |
-| 10 | `testMovieList_FilterByCategoryAndCountry` | MovieListTest | Lọc đa điều kiện |
-| 11 | `testSearch_TitlePage_ContainsKeyword` | SearchTest | SEO tìm kiếm |
-| 12 | `testSearch_ValidKeyword_ReturnsResults` | SearchTest | Tìm kiếm từ khóa hợp lệ |
-| 13 | `testSearch_Pagination_Page2DiffersFromPage1` | SearchTest | Phân trang tìm kiếm |
-| 14 | `testSearch_SingleCharKeyword_HandledGracefully` | SearchTest | Xử lý từ khóa ngắn |
-| 15 | `testCategory_ItemsExist` | CategoryCountryYearTest | Danh sách thể loại |
-| 16 | `testCountry_ItemsExist` | CategoryCountryYearTest | Danh sách quốc gia |
-| 17 | `testYear_ItemsExist` | CategoryCountryYearTest | Danh sách năm phát hành |
-| 18 | `testCategory_Details` | CategoryCountryYearTest | Chi tiết thể loại có phim |
-| 19 | `testHome_BannerItems` | HomeTest | Banner trang chủ |
-| 20 | `testHome_LatestMovies` | HomeTest | Phim mới nhất trang chủ |
+Dự án này bao gồm **13 bài test** được cố tình cấu hình để gây ra lỗi (FAIL). Mục tiêu của các test này là để kiểm chứng độ tin cậy của bộ kiểm thử: đảm bảo hệ thống thực sự báo đỏ (Fail) khi API trả về dữ liệu sai. Hiện tại các test này đã được **comment lại** để dự án đạt `BUILD SUCCESS`, nhưng người duyệt có thể bỏ comment ra để xem báo cáo lỗi.
 
----
-
-## 🗑️ File đã xóa
-
-| File | Lý do |
-|------|-------|
-| `MovieTest.java` | Dư thừa — toàn bộ nội dung đã được tích hợp và nâng cấp trong `MovieDetailTest.java` và `MovieListTest.java` |
+| # | Tên Test | File | Mô tả lý do cố tình Fail |
+|---|----------|------|---------------------------|
+| 1 | `testHomePage_IntentionalFail_Status` | HomeTest | Kỳ vọng status "error" nhưng thực tế "success" |
+| 2 | `testHomePage_IntentionalFail_SeoTitle` | HomeTest | Kỳ vọng title là trang lậu, khác với thực tế |
+| 3 | `testHomePage_IntentionalFail_TotalItems` | HomeTest | Kỳ vọng tổng số lượng phim là 0 |
+| 4 | `testDetail_IntentionalFail` | MovieDetailTest | Cố tình sai trường thông tin cơ bản |
+| 5 | `testImages_IntentionalFail` | MovieDetailTest | Cố tình kiểm tra sai trạng thái ảnh |
+| 6 | `testPeoples_IntentionalFail` | MovieDetailTest | Cố tình kiểm tra danh sách cast (diễn viên) rỗng |
+| 7 | `testKeywords_IntentionalFail` | MovieDetailTest | Cố tình sai số lượng từ khóa nhận được |
+| 8 | `testMovieList_IntentionalFail` | MovieListTest | Kiểm tra sai trường trạng thái và báo cáo lỗi mục items rỗng |
+| 9 | `testMovieList_TotalPages_FieldNotExist_ExpectFail` | MovieListTest | Kỳ vọng trường totalPages tồn tại nhưng thực tế thiếu |
+| 10 | `testSearch_Message_ExpectFail` | SearchTest | Kỳ vọng thông báo trả về "oh no da loi" |
+| 11 | `testCategory_IntentionalFail` | CategoryCountryYearTest | Cố tình sai titlePage của thể loại |
+| 12 | `testCountry_IntentionalFail_Status` | CategoryCountryYearTest | Cố tình mong đợi status HTTP 404 cho quốc gia hợp lệ |
+| 13 | `testYear_IntentionalFail_StatusString` | CategoryCountryYearTest | Kỳ vọng status "error" ở năm phát hành |
 
 ---
 
@@ -162,4 +149,4 @@
 - **Framework:** JUnit 5 + RestAssured
 - **Build tool:** Maven
 - **API Base URL:** `https://ophim1.com`
-- **Java Version:** JDK 17+
+- **Java Version:** JDK 21+
